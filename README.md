@@ -2,6 +2,14 @@
 
 This is the codebase of our CVPR 2024 paper.
 
+## Overview
+- [Abstract](#abstract)
+- [Environment](#environment)
+- [Prepare Dataset](#prepare-daraset)
+- [Getting Started](#getting-started)
+- [Model Zoo](#model-zoo)
+- [Citation](#citation)
+  
 ## Abstract
 CPD (Commonsense Prototype for Outdoor Unsupervised 3D Object Detection) is a fully unsupervised three-dimensional object detection framework. We propose a detection method based on CProto, which significantly addresses the errors in pseudo-labels caused by the sparsity of LiDAR data, and outperforms state-of-the-art unsupervised 3D detectors on the Waymo Open Dataset (WOD)PandaSet, and KITTI datasets by a large margin.
 ![image](https://github.com/hailanyi/CPD/assets/75151571/45d42484-216c-4144-9675-d0886934626d)
@@ -16,7 +24,28 @@ pip install -r requirements.txt
 python setup.py develop
 ```
 
-## Training
+## Prepare Dataset
+#### Waymo Dataset
+```
+CPD
+├── data
+│   ├── waymo
+│   │   │── ImageSets
+│   │   │── raw_data
+│   │   │   │── segment-xxxxxxxx.tfrecord
+|   |   |   |── ...
+|   |   |── waymo_processed_data_train_val_test
+│   │   │   │── segment-xxxxxxxx/
+|   |   |   |── ...
+│   │   │── pcdet_waymo_track_dbinfos_train_cp.pkl
+│   │   │── waymo_infos_test.pkl
+│   │   │── waymo_infos_train.pkl
+│   │   │── waymo_infos_val.pkl
+├── pcdet
+├── tools
+```
+## Getting Started
+### Training
 Train using scripts
 ```bash
 cd tools
@@ -28,7 +57,7 @@ cd tools
 python train.py 
 ```
 
-## Evaluation
+### Evaluation
 ```bash
 Train using scripts
 cd tools
