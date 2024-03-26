@@ -11,7 +11,7 @@ This is the codebase of our CVPR 2024 paper.
 - [Citation](#citation)
   
 ## Abstract
-**CPD** (**C**ommonsense **P**rototype-based **D**etector) is a fully unsupervised three-dimensional object detection framework. We propose a detection method based on CProto, which significantly addresses the errors in pseudo-labels caused by the sparsity of LiDAR data, and outperforms state-of-the-art unsupervised 3D detectors on the Waymo Open Dataset (WOD)PandaSet, and KITTI datasets by a large margin.
+**CPD** (**C**ommonsense **P**rototype-based **D**etector)  represents a high-performance unsupervised 3D detection framework. CPD first constructs Commonsense Prototype (CProto) characterized by high-quality bounding box and dense points, based on commonsense intuition. Subsequently, CPD refines the low-quality pseudo-labels by leveraging the size prior from CProto. Furthermore, CPD enhances the detection accuracy of sparsely scanned objects by the geometric knowledge from CProto, and outperforms state-of-the-art unsupervised 3D detectors on the Waymo Open Dataset (WOD)PandaSet, and KITTI datasets by a large margin.
 ![image](https://github.com/hailanyi/CPD/assets/75151571/45d42484-216c-4144-9675-d0886934626d)
 
 ## Environment
