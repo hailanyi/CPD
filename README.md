@@ -59,17 +59,17 @@ sh dist_test.sh {cfg_file}
         <td>0</td>
         <td>0.25</td>
         <td>0.20</td>
-        <td><b><a href="https://www.../">20epoch</a></td>
+        <td><b><a href="https://www.../">dbscan_20epoch</a></td>
     <tr>
        <tr>
         <td><b>CPD</td>
-        <td><b>37.40</td>
-        <td><b>32.13</td>
-        <td><b>16.31</td>
-        <td><b>13.22</td>
-        <td><b>5.06</td>
-        <td><b>4.87</td>
-        <td><b><a href="https://www.../">20epoch</a></td>
+        <td><b>38.74</td>
+        <td><b>33.37</td>
+        <td><b>16.53</td>
+        <td><b>13.72</td>
+        <td><b>4.28</td>
+        <td><b>4.13</td>
+        <td><b><a href="https://drive.google.com/file/d/1_6iFzGfnwGZYD8pqQBRa-Nz1ZLGZ27fZ/view?usp=sharing">cpd_20epoch</a></td>
     <tr>
 </table>
 
