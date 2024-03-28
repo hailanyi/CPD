@@ -110,7 +110,7 @@ sh dist_test.sh {cfg_file}
         <td><b>6.78</td>
         <td><b>0.03</td>
         <td><b>0.02</td>
-        <td><b>4.02</td>
+        <td><b>4.65</td>
         <td><b>4.05</td>
         <td><b><a href="https://drive.google.com/file/d/1rHySNcUnwXkMNNRgf2D2GQ-hPnaa7ejz/view?usp=sharing">oyster_pretrained</a></td>
     <tr>
