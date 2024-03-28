@@ -89,6 +89,17 @@ sh dist_test.sh {cfg_file}
         <td>0.25</td>
         <td>0.20</td>
         <td><b><a href="https://www.../">dbscan_20epoch</a></td>
+     <tr>
+       <tr>
+        <td><b>OYSTER</td>
+        <td><b>7.91</td>
+        <td><b>6.78</td>
+        <td><b>0.03</td>
+        <td><b>0.02</td>
+        <td><b>4.91</td>
+        <td><b>4.75</td>
+        <td><b><a href="https://drive.google.com/file/d/1_6iFzGfnwGZYD8pqQBRa-Nz1ZLGZ27fZ/view?usp=sharing">cpd_20epoch</a></td>
+    <tr>
     <tr>
        <tr>
         <td><b>CPD</td>
