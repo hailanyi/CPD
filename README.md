@@ -102,7 +102,7 @@ sh dist_test.sh {cfg_file}
         <td>0</td>
         <td>0.25</td>
         <td>0.20</td>
-        <td><b><a href="https://www.../">dbscan_20epoch</a></td>
+        <td><b><a href="https://www.../">---</a></td>
      <tr>
        <tr>
         <td><b>OYSTER</td>
@@ -112,7 +112,7 @@ sh dist_test.sh {cfg_file}
         <td><b>0.02</td>
         <td><b>4.91</td>
         <td><b>4.75</td>
-        <td><b><a href="https://drive.google.com/file/d/1_6iFzGfnwGZYD8pqQBRa-Nz1ZLGZ27fZ/view?usp=sharing">cpd_20epoch</a></td>
+        <td><b><a href="https://drive.google.com/file/d/1rHySNcUnwXkMNNRgf2D2GQ-hPnaa7ejz/view?usp=sharing">oyster_pretrained</a></td>
     <tr>
     <tr>
        <tr>
@@ -122,8 +122,8 @@ sh dist_test.sh {cfg_file}
         <td><b>16.53</td>
         <td><b>13.72</td>
         <td><b>4.28</td>
-        <td><b>4.13</td>
-        <td><b><a href="https://drive.google.com/file/d/1_6iFzGfnwGZYD8pqQBRa-Nz1ZLGZ27fZ/view?usp=sharing">cpd_20epoch</a></td>
+        <td><b>4.49</td>
+        <td><b><a href="https://drive.google.com/file/d/1_6iFzGfnwGZYD8pqQBRa-Nz1ZLGZ27fZ/view?usp=sharing">cpd_pretrained</a></td>
     <tr>
 </table>
 
