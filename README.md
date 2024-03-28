@@ -26,6 +26,10 @@ python setup.py develop
 
 ## Prepare Dataset
 #### Waymo Dataset
+* Please download the official [Waymo Open Dataset](https://waymo.com/open/download/), 
+    including the training data `training_0000.tar~training_0031.tar` and the validation 
+    data `validation_0000.tar~validation_0007.tar`.
+* Unzip all the above `xxxx.tar` files to the directory of `data/waymo/raw_data` as follows (You could get 798 *train* tfrecord and 202 *val* tfrecord ):  
 ```
 CPD
 ├── data
@@ -44,6 +48,17 @@ CPD
 ├── pcdet
 ├── tools
 ```
+Install the official `waymo-open-dataset` by running the following command: 
+```
+# tf 2.0.0
+pip install waymo-open-dataset-tf-2-5-0 --user
+```
+Then, generate dataset information:
+```
+cd pcdet/datasets/waymo_unsupervised
+python waymo_unsupervised_dataset.py --cfg_file{...}
+```
+
 ## Getting Started
 ### Training
 Train using scripts
