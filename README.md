@@ -122,7 +122,7 @@ sh dist_test.sh {cfg_file}
         <td><b>16.53</td>
         <td><b>13.72</td>
         <td><b>4.28</td>
-        <td><b>4.49</td>
+        <td><b>4.13</td>
         <td><b><a href="https://drive.google.com/file/d/1_6iFzGfnwGZYD8pqQBRa-Nz1ZLGZ27fZ/view?usp=sharing">cpd_pretrained</a></td>
     <tr>
 </table>
