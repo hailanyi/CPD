@@ -20,6 +20,9 @@ conda create --name cpd python=3.8
 conda activate cpd
 pip install -r requirements.txt
 
+#Before installing PCD, please install spconv2.x first. For example, if your CUDA version is 11.4, please execute:
+pip install spconv-cu114
+
 #Install PCD
 python setup.py develop
 ```
