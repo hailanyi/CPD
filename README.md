@@ -74,7 +74,6 @@ python train.py
 
 ### Evaluation
 ```bash
-Train using scripts
 cd tools
 sh dist_test.sh {cfg_file}
 ```
