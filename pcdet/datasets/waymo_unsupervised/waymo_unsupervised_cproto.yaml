@@ -106,30 +106,12 @@ map_to_real_label: {
 labeling_method: {
                    'unlabeled': {'frame_interval':-1,
                                  'label_num_per_frame':-1},
-                   'ins_labeled_0.0001': {'frame_interval':200,
-                                              'label_num_per_frame':1},
-                   'ins_labeled_0.001': {'frame_interval':20,
-                                             'label_num_per_frame':1},
-                   'ins_labeled_0.01': {'frame_interval':2,
-                                            'label_num_per_frame':1},
-                   'ins_labeled_0.1': {'frame_interval':1,
-                                           'label_num_per_frame':2},
-                   'frame_labeled_0.0001': {'frame_interval':10000,
-                                   'label_num_per_frame':1000},
-                   'frame_labeled_0.001': {'frame_interval':1000,
-                                            'label_num_per_frame':1000},
-                   'frame_labeled_0.01': {'frame_interval':100,
-                                            'label_num_per_frame':1000},
-                   'frame_labeled_0.1': {'frame_interval':10,
-                                          'label_num_per_frame':1000},
-                   'all_labeled': {'frame_interval':1,
-                                   'label_num_per_frame':1000},
                   }
 
 current_label_method: 'unlabeled'
 
 DATASET: 'WaymoUnsupervisedDataset'
-DATA_PATH: '/mnt/32THHD/wh/data/waymo/perception'
+DATA_PATH: '../data/waymo'
 PROCESSED_DATA_TAG: 'waymo_processed_data_train_val_test'
 
 POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 4]
@@ -148,63 +130,6 @@ NUM_FRAMES: 3
 MERGE_FRAME: True
 TL: False
 SAMPLING: False
-
-TEST_AUGMENTOR:
-    - AUG_CONFIG_LIST:
-          # 0.39269908169872414, 0.7853981633974483, 2.356194490192345, 2.748893571891069, 3.141592653589793
-        - NAME: world_rotation
-          WORLD_ROT: 0
-
-        - NAME: world_flip
-          ALONG_AXIS: None
-
-        - NAME: world_scaling
-          WORLD_SCALE: 1
-    - AUG_CONFIG_LIST:
-        - NAME: world_rotation
-          WORLD_ROT: 0.39269908169872414
-
-        - NAME: world_flip
-          ALONG_AXIS: None
-
-        - NAME: world_scaling
-          WORLD_SCALE: 1
-    - AUG_CONFIG_LIST:
-        - NAME: world_rotation
-          WORLD_ROT: -0.39269908169872414
-
-        - NAME: world_flip
-          ALONG_AXIS: None
-
-        - NAME: world_scaling
-          WORLD_SCALE: 1
-    - AUG_CONFIG_LIST:
-        - NAME: world_rotation
-          WORLD_ROT: 0
-
-        - NAME: world_flip
-          ALONG_AXIS: 'x'
-
-        - NAME: world_scaling
-          WORLD_SCALE: 1
-    - AUG_CONFIG_LIST:
-        - NAME: world_rotation
-          WORLD_ROT: 0.39269908169872414
-
-        - NAME: world_flip
-          ALONG_AXIS: 'x'
-
-        - NAME: world_scaling
-          WORLD_SCALE: 1
-    - AUG_CONFIG_LIST:
-        - NAME: world_rotation
-          WORLD_ROT: -0.39269908169872414
-
-        - NAME: world_flip
-          ALONG_AXIS: 'x'
-
-        - NAME: world_scaling
-          WORLD_SCALE: 1
 
 DATA_AUGMENTOR:
     DISABLE_AUG_LIST: ['placeholder']

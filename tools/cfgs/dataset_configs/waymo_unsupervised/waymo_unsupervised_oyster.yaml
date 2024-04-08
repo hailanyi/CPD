@@ -83,7 +83,7 @@ labeling_method: {
 current_label_method: 'unlabeled'
 
 DATASET: 'WaymoUnsupervisedDataset'
-DATA_PATH: '/home/asc01/data/waymo/perception'
+DATA_PATH: '../data/waymo'
 PROCESSED_DATA_TAG: 'waymo_processed_data_train_val_test'
 
 POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 4]

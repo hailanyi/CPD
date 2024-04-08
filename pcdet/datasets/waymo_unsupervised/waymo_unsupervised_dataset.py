@@ -804,78 +804,6 @@ class WaymoUnsupervisedDataset(DatasetTemplate):
                 sample_idx = pc_info['sample_idx']
                 points = self.get_lidar(sequence_name, sample_idx)
 
-                annos = info['annos']
-                names = annos['name']
-
-                if names.shape[0] == 0:
-                    continue
-
-                difficulty = annos['difficulty']
-                gt_boxes = annos['gt_boxes_lidar']
-                obj_ids = annos['obj_ids']
-
-                num_obj = gt_boxes.shape[0]
-                if num_obj == 0:
-                    continue
-
-                mask = (names == cls_name)
-
-                names = names[mask]
-                gt_boxes = gt_boxes[mask]
-                difficulty = difficulty[mask]
-                obj_ids = obj_ids[mask]
-
-                num_obj = gt_boxes.shape[0]
-                if num_obj ==0:
-                    continue
-
-                box_idxs_of_pts = roiaware_pool3d_utils.points_in_boxes_gpu(
-                    torch.from_numpy(points[:, 0:3]).unsqueeze(dim=0).float().cuda(),
-                    torch.from_numpy(gt_boxes[:, 0:7]).unsqueeze(dim=0).float().cuda()
-                ).long().squeeze(dim=0).cpu().numpy()
-
-                this_file = database_save_path / sequence_name / str(sample_idx)
-
-                os.makedirs(this_file, exist_ok=True)
-
-                for i in range(num_obj):
-
-                    labeling_method_dict = []
-
-                    for method_key in labeling_method.keys():
-                        if method_key!='unlabeled':
-                            if k % labeling_method[method_key]['frame_interval'] ==0 \
-                                and i<labeling_method[method_key]['label_num_per_frame']:
-                                labeling_method_dict.append(method_key)
-
-                    ob_id = obj_ids[i]
-                    filename = '%s_%s.bin' % (names[i], ob_id)
-                    filepath = database_save_path / sequence_name / str(sample_idx) / filename
-
-
-                    gt_points = points[box_idxs_of_pts == i]
-                    gt_points[:, :3] -= gt_boxes[i, :3]
-
-                    if gt_points.shape[0]<=5:
-                        continue
-
-                    if (used_classes is None) or names[i] in used_classes:
-                        with open(filepath, 'w') as f:
-                            gt_points.tofile(f)
-
-
-                    if (used_classes is None) or names[i] in used_classes:
-
-                        db_path = str(gt_path_name / sequence_name / str(sample_idx) / filename)  # gt_database/xxxxx.bin
-
-                        db_info = {'name': cls_name, 'path': db_path, 'sequence_name': sequence_name,
-                                   "seq_idx": sequence_name, 'image_idx': sample_idx,'sample_idx': sample_idx,
-                                   'gt_idx': i, 'ob_idx': ob_id,
-                                   'box3d_lidar': gt_boxes[i], 'num_points_in_gt': gt_points.shape[0], 'pose': info['pose'],
-                                   'difficulty': difficulty[i],
-                                   'labeling_method_dict': labeling_method_dict}
-
-                        all_db_infos[cls_name].append(db_info)
 
                 outline_box = info['outline_box']
                 outline_ids = info['outline_ids']
@@ -999,7 +927,7 @@ def create_waymo_infos(dataset_cfg, class_names, data_path, save_path,
     dataset.set_split(train_split)
 
     waymo_infos_train = dataset.get_infos(
-        raw_data_path=data_path / 'training',
+        raw_data_path=data_path / raw_data_tag,
         save_path=save_path / processed_data_tag, num_workers=workers, has_label=True,
         sampled_interval=1
     )
@@ -1007,7 +935,7 @@ def create_waymo_infos(dataset_cfg, class_names, data_path, save_path,
     
     if dataset.dataset_cfg.get('PPScoreConfig', None) is not None:
         print('---------------Start to generate ppscore---------------')
-        #dataset.create_ppscore(root_path=save_path / processed_data_tag)
+        dataset.create_ppscore(root_path=save_path / processed_data_tag)
 
 
     if dataset.dataset_cfg.get('MERGE_CONFIG', None) is not None:
@@ -1034,28 +962,28 @@ def create_waymo_infos(dataset_cfg, class_names, data_path, save_path,
         pickle.dump(waymo_infos_train, f)
     print('----------------Waymo info train file is saved to %s----------------' % train_filename)
     
-    # dataset.set_split(val_split)
-    # waymo_infos_val = dataset.get_infos(
-    #     raw_data_path=data_path / 'validation',
-    #     save_path=save_path / processed_data_tag, num_workers=workers, has_label=True,
-    #     sampled_interval=1
-    # )
-    #
-    # with open(val_filename, 'wb') as f:
-    #     pickle.dump(waymo_infos_val, f)
-    # print('----------------Waymo info val file is saved to %s----------------' % val_filename)
-    #
-    #
-    # dataset.set_split(test_split)
-    # waymo_infos_test = dataset.get_infos(
-    #     raw_data_path=data_path / 'testing',
-    #     save_path=save_path / processed_data_tag, num_workers=workers, has_label=False,
-    #     sampled_interval=1
-    # )
-    #
-    # with open(test_filename, 'wb') as f:
-    #     pickle.dump(waymo_infos_test, f)
-    # print('----------------Waymo info val file is saved to %s----------------' % test_filename)
+    dataset.set_split(val_split)
+    waymo_infos_val = dataset.get_infos(
+        raw_data_path=data_path / raw_data_tag,
+        save_path=save_path / processed_data_tag, num_workers=workers, has_label=True,
+        sampled_interval=1
+    )
+
+    with open(val_filename, 'wb') as f:
+        pickle.dump(waymo_infos_val, f)
+    print('----------------Waymo info val file is saved to %s----------------' % val_filename)
+
+
+    dataset.set_split(test_split)
+    waymo_infos_test = dataset.get_infos(
+        raw_data_path=data_path / raw_data_tag,
+        save_path=save_path / processed_data_tag, num_workers=workers, has_label=False,
+        sampled_interval=1
+    )
+
+    with open(test_filename, 'wb') as f:
+        pickle.dump(waymo_infos_test, f)
+    print('----------------Waymo info val file is saved to %s----------------' % test_filename)
     
 
     
@@ -1074,7 +1002,7 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='arg parser')
-    parser.add_argument('--cfg_file', type=str, default='waymo_unsupervised_cproto_si.yaml', help='specify the config of dataset')
+    parser.add_argument('--cfg_file', type=str, default='waymo_unsupervised_cproto.yaml', help='specify the config of dataset')
     parser.add_argument('--func', type=str, default='create_waymo_infos', help='')
     args = parser.parse_args()
 
@@ -1082,8 +1010,7 @@ if __name__ == '__main__':
         import yaml
         from easydict import EasyDict
         dataset_cfg = EasyDict(yaml.safe_load(open(args.cfg_file)))
-        # ROOT_DIR = (Path(__file__).resolve().parent / '../../../').resolve()
-        ROOT_DIR = '/mnt/32THHD/wh/data/waymo/perception'
+        ROOT_DIR = (Path(__file__).resolve().parent / '../../../').resolve()
         ROOT_DIR = Path(ROOT_DIR)
         ROOT_DIR = ROOT_DIR.resolve()
         create_waymo_infos(
