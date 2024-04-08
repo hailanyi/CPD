@@ -51,19 +51,6 @@ if __name__ == '__main__':
         cmdclass={'build_ext': BuildExtension},
         ext_modules=[
             make_cuda_ext(
-                name='votr_ops_cuda',
-                module='pcdet.ops.votr_ops',
-                sources=[
-                    'src/votr_api.cpp',
-                    'src/build_mapping.cpp',
-                    'src/build_mapping_gpu.cu',
-                    'src/build_attention_indices.cpp',
-                    'src/build_attention_indices_gpu.cu',
-                    'src/group_features.cpp',
-                    'src/group_features_gpu.cu',
-                ],
-            ),
-            make_cuda_ext(
                 name='iou3d_nms_cuda',
                 module='pcdet.ops.iou3d_nms',
                 sources=[
