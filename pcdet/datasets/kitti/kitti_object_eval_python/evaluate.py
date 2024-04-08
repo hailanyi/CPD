@@ -2,8 +2,8 @@ import time
 
 import fire
 
-import pcdet.datasets.kitti.kitti_object_eval_python.kitti_common as kitti
-from pcdet.datasets.kitti.kitti_object_eval_python.eval import get_coco_eval_result, get_official_eval_result
+import cpd.datasets.kitti.kitti_object_eval_python.kitti_common as kitti
+from cpd.datasets.kitti.kitti_object_eval_python.eval import get_coco_eval_result, get_official_eval_result
 import pickle
 
 def _read_imageset_file(path):

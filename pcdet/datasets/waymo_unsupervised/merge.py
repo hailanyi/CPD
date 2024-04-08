@@ -1,11 +1,11 @@
-from pcdet.ops.iou3d_nms import iou3d_nms_utils
-from pcdet.config import *
+from cpd.ops.iou3d_nms import iou3d_nms_utils
+from cpd.config import *
 import os
 import pickle
 import numpy as np
 import torch
 from tqdm import trange
-from pcdet.utils import common_utils
+from cpd.utils import common_utils
 
 
 def read_pickles(path, cfg):

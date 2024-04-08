@@ -11,16 +11,16 @@ import numpy as np
 import torch
 import tqdm
 from pathlib import Path
-from pcdet.ops.roiaware_pool3d import roiaware_pool3d_utils
-from pcdet.utils import box_utils, common_utils
-from pcdet.datasets.dataset import DatasetTemplate
-from pcdet.unsupervised_core.precompute_ppscore import save_pp_score
-from pcdet.unsupervised_core import compute_outline_box
+from cpd.ops.roiaware_pool3d import roiaware_pool3d_utils
+from cpd.utils import box_utils, common_utils
+from cpd.datasets.dataset import DatasetTemplate
+from cpd.unsupervised_core.precompute_ppscore import save_pp_score
+from cpd.unsupervised_core import compute_outline_box
 import multiprocessing
 from functools import partial
-from pcdet.unsupervised_core.ob_op import box_cut,la_sampling
+from cpd.unsupervised_core.ob_op import box_cut,la_sampling
 import time
-from pcdet.datasets.waymo_unsupervised.merge import DetectionsMerger
+from cpd.datasets.waymo_unsupervised.merge import DetectionsMerger
 
 
 class WaymoUnsupervisedDataset(DatasetTemplate):

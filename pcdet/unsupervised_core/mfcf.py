@@ -1,6 +1,6 @@
 import os
 import pickle as pkl
-from pcdet.unsupervised_core.outline_utils import OutlineFitter, TrackSmooth, voxel_sampling, points_rigid_transform
+from cpd.unsupervised_core.outline_utils import OutlineFitter, TrackSmooth, voxel_sampling, points_rigid_transform
 import numpy as np
 
 class MFCF():

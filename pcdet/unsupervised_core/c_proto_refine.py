@@ -3,12 +3,12 @@ import copy
 import os
 import pickle as pkl
 
-from pcdet.unsupervised_core.outline_utils import OutlineFitter, points_rigid_transform, correct_heading,\
+from cpd.unsupervised_core.outline_utils import OutlineFitter, points_rigid_transform, correct_heading,\
     hierarchical_occupancy_score, smooth_points, angle_from_vector, get_registration_angle, box_rigid_transform,\
     correct_orientation, density_guided_drift,\
     KL_entropy_score
 
-from pcdet.unsupervised_core.ob_op import box_cut
+from cpd.unsupervised_core.ob_op import box_cut
 
 class CSS():
     def __init__(self, config):

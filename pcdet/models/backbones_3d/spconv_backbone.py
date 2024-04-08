@@ -3,7 +3,7 @@ from ...utils.spconv_utils import replace_feature, spconv
 import torch.nn as nn
 import numpy as np
 import torch
-from pcdet.datasets.augmentor.X_transform import X_TRAIN
+from cpd.datasets.augmentor.X_transform import X_TRAIN
 import time
 import random
 

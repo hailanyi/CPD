@@ -6,8 +6,8 @@ import torch
 import tqdm
 import os
 
-from pcdet.models import load_data_to_gpu
-from pcdet.utils import common_utils
+from cpd.models import load_data_to_gpu
+from cpd.utils import common_utils
 import time
 
 

@@ -9,7 +9,7 @@ import pickle
 import numpy as np
 import sys
 sys.path.append(".../")
-from pcdet.utils import common_utils
+from cpd.utils import common_utils
 # from ...utils import common_utils
 import tensorflow as tf
 from waymo_open_dataset.utils import frame_utils, transform_utils, range_image_utils

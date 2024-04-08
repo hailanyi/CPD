@@ -1,7 +1,7 @@
-from pcdet.unsupervised_core.dbscan import DBSCAN
-from pcdet.unsupervised_core.oyster import OYSTER
-from pcdet.unsupervised_core.mfcf import MFCF
-from pcdet.unsupervised_core.c_proto_refine import C_PROTO
+from cpd.unsupervised_core.dbscan import DBSCAN
+from cpd.unsupervised_core.oyster import OYSTER
+from cpd.unsupervised_core.mfcf import MFCF
+from cpd.unsupervised_core.c_proto_refine import C_PROTO
 all_init = {
     'DBSCAN': DBSCAN,
     'OYSTER': OYSTER,

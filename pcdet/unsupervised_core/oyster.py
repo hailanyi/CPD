@@ -1,6 +1,6 @@
 import os
 import pickle as pkl
-from pcdet.unsupervised_core.outline_utils import OutlineFitter, TrackSmooth, drop_cls, corner_align
+from cpd.unsupervised_core.outline_utils import OutlineFitter, TrackSmooth, drop_cls, corner_align
 import numpy as np
 import copy
 

@@ -83,9 +83,6 @@ MODEL:
     ROI_HEAD:
         NAME: VoxelRCNNHead
         CLASS_AGNOSTIC: True
-        ENABLE3STAGE: True
-
-        FREEZE_TEACHER: False
 
         SHARED_FC: [256, 256]
         CLS_FC: [256, 256]
@@ -189,7 +186,7 @@ MODEL:
 
 OPTIMIZATION:
     BATCH_SIZE_PER_GPU: 4
-    NUM_EPOCHS: 100
+    NUM_EPOCHS: 20
 
     OPTIMIZER: adam_onecycle
     LR: 0.003

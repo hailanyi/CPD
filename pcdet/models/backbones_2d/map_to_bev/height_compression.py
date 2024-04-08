@@ -1,6 +1,6 @@
 import torch.nn as nn
 import numpy as np
-from pcdet.datasets.augmentor.X_transform import X_TRAIN
+from cpd.datasets.augmentor.X_transform import X_TRAIN
 import torch
 def bilinear_interpolate_torch(im, x, y):
     """

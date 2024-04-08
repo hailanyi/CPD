@@ -1,11 +1,11 @@
-from pcdet.unsupervised_core.ground_removal import Processor
+from cpd.unsupervised_core.ground_removal import Processor
 import numpy as np
 import os
 import pickle as pkl
 from sklearn.cluster import DBSCAN
 from scipy.spatial import ConvexHull
-from pcdet.unsupervised_core.tracker.tracker import Tracker3D
-from pcdet.unsupervised_core.tracker.box_op import register_bbs
+from cpd.unsupervised_core.tracker.tracker import Tracker3D
+from cpd.unsupervised_core.tracker.box_op import register_bbs
 from scipy.spatial import cKDTree
 import copy
 import warnings
