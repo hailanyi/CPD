@@ -186,6 +186,7 @@ class ProposalTargetLayer(nn.Module):
         else:
             raise NotImplementedError
 
+
         targets_dict = {'rois': batch_rois, 'gt_of_rois': batch_gt_of_rois, 'gt_iou_of_rois': batch_roi_ious,
                         'roi_scores': batch_roi_scores, 'roi_labels': batch_roi_labels,
                         'reg_valid_mask': reg_valid_mask,

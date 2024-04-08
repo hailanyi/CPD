@@ -202,115 +202,6 @@ class WaymoUnsupervisedDataset(DatasetTemplate):
         return T[:, 0:3]
 
 
-    def sample_prototype(self, seq_name,
-                       root_path,
-                       points,
-                       outline_boxes,
-                       outline_cls,
-                       outline_score,
-                       proto_id,
-                       dataset_cfg):
-
-        new_outline_boxes = []
-        new_outline_cls = []
-        new_outline_score = []
-        new_proto_id = []
-
-        init_method_name = dataset_cfg.InitLabelGenerator
-        proto_info_path = os.path.join(root_path, seq_name,
-                                       seq_name + '_outline_' + str(init_method_name) + '_CSS_proto.pkl')
-
-        with open(proto_info_path, 'rb') as f:
-            proto_set = pickle.load(f)
-
-        proto_points_set = proto_set['proto_points_set']
-
-        valid_proto_id = []
-        valid_names = []
-
-        box_idxs_of_pts = roiaware_pool3d_utils.points_in_boxes_gpu(
-                    torch.from_numpy(points[:, 0:3]).unsqueeze(dim=0).float().cuda(),
-                    torch.from_numpy(outline_boxes[:, 0:7]).unsqueeze(dim=0).float().cuda()
-                ).long().squeeze(dim=0).cpu().numpy()
-
-        retain_mask = np.ones(shape = (points.shape[0],))
-
-        for i in range(len(outline_boxes)):
-            this_box = outline_boxes[i]
-            this_name = outline_cls[i]
-            this_score = outline_score[i]
-            this_proto_id = proto_id[i]
-
-            if this_name == 'Dis_Small':
-                retain_mask*=(box_idxs_of_pts!=i)
-            elif this_name in ['Vehicle', 'Pedestrian', 'Cyclist']:
-
-                if this_score > dataset_cfg.RefinerConfig.DiscardThresh[this_name]:
-                    new_outline_boxes.append(this_box)
-                    new_outline_cls.append(this_name)
-                    new_proto_id.append(this_proto_id)
-                    new_outline_score.append(this_score)
-                    if this_proto_id not in valid_proto_id and this_proto_id >= 0:
-                        valid_proto_id.append(this_proto_id)
-                        valid_names.append(this_name)
-                else:
-                    retain_mask*=(box_idxs_of_pts!=i)
-
-        points = points[retain_mask.astype(bool)]
-
-        all_valid_proto_points = []
-        all_valid_proto_boxes = []
-
-        for i in range(len(valid_proto_id)):
-            this_proto = proto_points_set[valid_names[i]][valid_proto_id[i]]
-            this_proto_points = this_proto['points']
-            this_proto_box = this_proto['box']
-            this_proto_score = 1
-            this_proto_id = valid_proto_id[i]
-
-            
-
-            random_pose = self.compute_proto_pos(new_outline_boxes)
-
-            this_proto_points[:, 0:2] -= this_proto_box[0:2]
-            this_proto_points[:, 0:2] += random_pose[...]
-            this_proto_box[0:2] = random_pose[...]
-
-            new_points = np.zeros(shape=(this_proto_points.shape[0], points.shape[1]))
-            new_points[:, 0:3] = this_proto_points[:, 0:3]
-
-            all_valid_proto_points.append(new_points)
-            all_valid_proto_boxes.append(this_proto_box)
-
-            new_outline_boxes.append(this_proto_box)
-            new_outline_cls.append(valid_names[i])
-            new_proto_id.append(this_proto_id)
-            new_outline_score.append(this_proto_score)
-
-        
-        all_valid_proto_boxes = np.array(all_valid_proto_boxes)
-
-        if len(all_valid_proto_boxes)>0:
-            all_valid_proto_points = np.concatenate(all_valid_proto_points, 0)
-            box_idxs_of_pts = roiaware_pool3d_utils.points_in_boxes_gpu(
-                    torch.from_numpy(points[:, 0:3]).unsqueeze(dim=0).float().cuda(),
-                    torch.from_numpy(all_valid_proto_boxes[:, 0:7]).unsqueeze(dim=0).float().cuda()
-                ).long().squeeze(dim=0).cpu().numpy()
-
-            points = points[box_idxs_of_pts==(-1)]
-            points = np.concatenate([points, all_valid_proto_points])
-
-
-        if np.random.randint(2):
-            randoms = np.random.permutation(len(points))
-            points = points[randoms[0:int(len(points)*0.1)]]
-            #points = la_sampling(points, vert_res=0.003)
-
-        return points, np.array(new_outline_boxes), \
-               np.array(new_outline_cls), \
-               np.array(new_outline_score), \
-               np.array(new_proto_id),
-
 
     def sample_prototype_cpu(self, seq_name,
                        root_path,
@@ -358,11 +249,21 @@ class WaymoUnsupervisedDataset(DatasetTemplate):
                 retain_mask_good_object *= (box_idxs_of_pts[i] == 0)
             elif this_name in ['Vehicle', 'Pedestrian', 'Cyclist']:
 
-                if this_score > dataset_cfg.RefinerConfig.DiscardThresh[this_name] and np.linalg.norm(
+                max_thresh = dataset_cfg.RefinerConfig.DiscardThreshMax[this_name]
+                min_thresh = dataset_cfg.RefinerConfig.DiscardThreshMin[this_name]
+                if this_score > min(min_thresh, max_thresh) and np.linalg.norm(
                         this_box[0:2]) < 75 and this_proto_id >= 0:
                     new_outline_boxes.append(this_box)
                     new_outline_cls.append(this_name)
                     new_proto_id.append(this_proto_id)
+
+                    if this_score<min_thresh:
+                        this_score=min_thresh
+                    if this_score>max_thresh:
+                        this_score=max_thresh
+
+                    this_score = (this_score - min_thresh) / (max_thresh-min_thresh)
+
                     new_outline_score.append(this_score)
 
                     this_proto = proto_points_set[this_name][this_proto_id]
@@ -421,23 +322,6 @@ class WaymoUnsupervisedDataset(DatasetTemplate):
         points_proto = np.concatenate(valid_proto_instance_points + [points_no_obj], 0)
 
         if np.random.randint(2):
-            # points_good_obj = la_sampling(points_proto, vert_res = 0.003)
-            #
-            # new_proto_pts = []
-            #
-            # for pts_proto in valid_proto_instance_points:
-            #     randoms = np.random.permutation(len(pts_proto))
-            #     rate = np.random.random() * 0.01
-            #     if rate < 0.001:
-            #         rate = 0.001
-            #     new_points = pts_proto[randoms[0:int(len(pts_proto) * rate)]]
-            #     if len(new_points) == 0:
-            #         new_proto_pts.append(pts_proto[randoms[0:5]])
-            #     else:
-            #         new_proto_pts.append(new_points)
-            # randoms = np.random.permutation(len(points_no_obj))
-            # new_points_no_obj = points_no_obj[randoms[0:int(len(points_no_obj) * 0.2)]]
-            # points_proto = np.concatenate(new_proto_pts + [new_points_no_obj], 0)
 
             randoms = np.random.permutation(len(points_good_obj))
             points_good_obj = points_good_obj[randoms[0:int(len(points_good_obj) * 0.2)]]

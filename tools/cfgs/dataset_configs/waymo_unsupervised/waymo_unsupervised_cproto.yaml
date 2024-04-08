@@ -90,7 +90,8 @@ RefinerConfig:
     HighQualityMotionThresh: 0.5
     HighQualityProtoNum: {'Vehicle': 10, 'Pedestrian': 5, 'Cyclist': 5}
     OrienThresh: 0.5
-    DiscardThresh: {'Vehicle':0.5, 'Pedestrian':0.5, 'Cyclist':0.7}
+    DiscardThreshMin: {'Vehicle':0.5, 'Pedestrian':0.5, 'Cyclist':0.5}
+    DiscardThreshMax: {'Vehicle':0.7, 'Pedestrian':0.55, 'Cyclist':0.55}
 
 
 

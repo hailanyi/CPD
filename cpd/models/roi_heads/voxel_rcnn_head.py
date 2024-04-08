@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from .roi_head_template import RoIHeadTemplate,CascadeRoIHeadTemplate
+from .roi_head_template import RoIHeadTemplate
 from ...utils import common_utils, spconv_utils
 from ...ops.pointnet2.pointnet2_stack import voxel_pool_modules as voxelpool_stack_modules
 from torch.autograd import Variable
@@ -440,7 +440,8 @@ class VoxelRCNNProtoHead(RoIHeadTemplate):
         l = torch.cosine_similarity(reg0, reg1, dim=-1)
 
         cls_valid_mask = (label >= 0).float()
-        cls_valid_mask = cls_valid_mask*css_score_mask_new
+
+        cls_valid_mask = cls_valid_mask*css_score_mask
 
         loss_sum = (l * cls_valid_mask).sum() / torch.clamp(cls_valid_mask.sum(), min=1.0)
 
@@ -587,10 +588,23 @@ class VoxelRCNNProtoHead(RoIHeadTemplate):
             batch_dict['roi_labels'] = targets_dict['roi_labels']
             new_targets_dict = {}
             for item in targets_dict:
-                new_targets_dict[item] = targets_dict[item].clone()
+                if item == 'additional_data':
+                    additional_data = {}
+                    for this_k in targets_dict[item]:
+                        additional_data[this_k] = targets_dict[item][this_k].clone()
+                    new_targets_dict[item] = additional_data
+                else:
+                    new_targets_dict[item] = targets_dict[item].clone()
+
             proto_targets_dict = {}
             for item in targets_dict:
-                proto_targets_dict[item] = targets_dict[item].clone()
+                if item == 'additional_data':
+                    additional_data = {}
+                    for this_k in targets_dict[item]:
+                        additional_data[this_k] = targets_dict[item][this_k].clone()
+                    proto_targets_dict[item] = additional_data
+                else:
+                    proto_targets_dict[item] = targets_dict[item].clone()
 
         # RoI aware pooling
         pooled_features = self.roi_grid_pool(batch_dict)  # (BxN, 6x6x6, C)
