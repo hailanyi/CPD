@@ -16,16 +16,20 @@ This is the codebase of our CVPR 2024 paper. The codebase is still under updatin
 
 ## Environment
 ```bash
-conda create --name cpd python=3.8
-conda activate cpd
-pip install -r requirements.txt
-
-#Before installing PCD, please install spconv2.x first. For example, if your CUDA version is 11.4, please execute:
-pip install spconv-cu114
-
-#Install PCD
-python setup.py develop
+conda create -n spconv2 python=3.9
+conda activate spconv2
+pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+pip install numpy==1.19.5 protobuf==3.19.4 scikit-image==0.19.2 waymo-open-dataset-tf-2-5-0 nuscenes-devkit==1.0.5 spconv-cu111 numba scipy pyyaml easydict fire tqdm shapely matplotlib opencv-python addict pyquaternion awscli open3d pandas future pybind11 tensorboardX tensorboard Cython prefetch-generator
 ```
+Environment we tested:
+
+Ubuntu 18.04
+Python 3.9.13
+PyTorch 1.8.1
+Numba 0.53.1
+Spconv 2.1.22 # pip install spconv-cu111
+NVIDIA CUDA 11.1
+4x 3090 GPUs
 
 ## Prepare Dataset
 #### Waymo Dataset
@@ -51,18 +55,12 @@ CPD
 ├── pcdet
 ├── tools
 ```
-Install the official `waymo-open-dataset` by running the following command: 
-```
-# tf 2.0.0
-pip install waymo-open-dataset-tf-2-5-0 --user
-```
+
 Then, generate dataset information:
 ```
-cd pcdet/datasets/waymo_unsupervised
-python waymo_unsupervised_dataset.py --cfg_file{...}
+python3 -m pcdet.datasets.waymo.waymo_tracking_dataset --cfg_file tools/cfgs/dataset_configs/waymo_unsupervised/waymo_unsupervised_cproto.yaml
 ```
 
-## Getting Started
 ### Training
 Train using scripts
 ```bash

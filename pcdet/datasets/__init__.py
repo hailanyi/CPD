@@ -5,15 +5,7 @@ from torch.utils.data import DistributedSampler as _DistributedSampler
 from pcdet.utils import common_utils
 
 from .dataset import DatasetTemplate
-from .kitti.kitti_dataset import KittiDataset
-from .kitti.kitti_datasetsemi import KittiDatasetSemi
-from .kitti.kitti_dataset_mm import KittiDatasetMM
 from .kitti.kitti2waymo_dataset import Kitti2WaymoDataset
-from .nuscenes.nuscenes_dataset import NuScenesDataset
-from .waymo.waymo_dataset import WaymoDataset
-from .once.once_dataset import OnceDataset
-from .inceptio.inceptio_dataset import InceptioDataset
-from .once.once_dataset_semi import OnceDatasetSemi
 from prefetch_generator import BackgroundGenerator
 
 
@@ -21,15 +13,7 @@ from .waymo_unsupervised.waymo_unsupervised_dataset import WaymoUnsupervisedData
 
 __all__ = {
     'DatasetTemplate': DatasetTemplate,
-    'KittiDataset': KittiDataset,
     'Kitti2WaymoDataset': Kitti2WaymoDataset,
-    'NuScenesDataset': NuScenesDataset,
-    'WaymoDataset': WaymoDataset,
-    'OnceDataset': OnceDataset,
-    'OnceDatasetSemi': OnceDatasetSemi,
-    'InceptioDataset': InceptioDataset,
-    'KittiDatasetSemi': KittiDatasetSemi,
-    'KittiDatasetMM': KittiDatasetMM,
     'WaymoUnsupervisedDataset': WaymoUnsupervisedDataset
 }
 
