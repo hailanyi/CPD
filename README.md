@@ -22,7 +22,7 @@ pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio==0.8.1 -f htt
 pip install numpy==1.19.5 protobuf==3.19.4 scikit-image==0.19.2 waymo-open-dataset-tf-2-5-0 nuscenes-devkit==1.0.5 spconv-cu111 numba scipy pyyaml easydict fire tqdm shapely matplotlib opencv-python addict pyquaternion awscli open3d pandas future pybind11 tensorboardX tensorboard Cython prefetch-generator
 ```
 Environment we tested:
-
+```
 Ubuntu 18.04
 Python 3.9.13
 PyTorch 1.8.1
@@ -30,6 +30,7 @@ Numba 0.53.1
 Spconv 2.1.22 # pip install spconv-cu111
 NVIDIA CUDA 11.1
 4x 3090 GPUs
+```
 
 ## Prepare Dataset
 #### Waymo Dataset
@@ -61,12 +62,36 @@ Then, generate dataset information:
 python3 -m pcdet.datasets.waymo.waymo_tracking_dataset --cfg_file tools/cfgs/dataset_configs/waymo_unsupervised/waymo_unsupervised_cproto.yaml
 ```
 
+#### KITTI Dataset
+
+* Please download the official [KITTI 3D object detection](http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d) dataset and organize the downloaded files as follows (the road planes could be downloaded from [[road plane]](https://drive.google.com/file/d/1d5mq0RXRnvHPVeKx6Q612z0YRO1t2wAp/view?usp=sharing), which are optional for data augmentation in the training):
+
+```
+CasA
+├── data
+│   ├── kitti
+│   │   │── ImageSets
+│   │   │── training
+│   │   │   ├──calib & velodyne & label_2 & image_2 & (optional: planes)
+│   │   │── testing
+│   │   │   ├──calib & velodyne & image_2
+├── pcdet
+├── tools
+```
+
+Run following command to creat dataset infos:
+```
+python3 -m pcdet.datasets.kitti.kitti2waymo_dataset create_kitti_infos tools/cfgs/dataset_configs/waymo_unsupervised/voxel_rcnn_cproto_center_kitti.yaml
+```
+
 ### Training
 Train using scripts
 ```bash
 cd tools
 sh dist_train.sh {cfg_file}
 ```
+The log infos are saved into log-test.txt You can run cat log.txt to view the test results.
+
 or run directly
 ```
 cd tools
@@ -78,6 +103,10 @@ python train.py
 cd tools
 sh dist_test.sh {cfg_file}
 ```
+The log infos are saved into log-test.txt You can run cat log-test.txt to view the test results.
+
+
+
 ## Model Zoo
 <table text-align="center">
     <tr>
