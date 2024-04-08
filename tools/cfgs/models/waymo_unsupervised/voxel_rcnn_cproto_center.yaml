@@ -81,7 +81,7 @@ MODEL:
 
 
     ROI_HEAD:
-        NAME: VoxelRCNNHead
+        NAME: VoxelRCNNProtoHead
         CLASS_AGNOSTIC: True
 
         SHARED_FC: [256, 256]

@@ -79,7 +79,7 @@ MODEL:
 
 
     ROI_HEAD:
-        NAME: VoxelRCNNHead
+        NAME: VoxelRCNNProtoHead
         CLASS_AGNOSTIC: True
         ENABLE3STAGE: True
 
