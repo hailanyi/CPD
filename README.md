@@ -1,4 +1,4 @@
-# Commonsense Prototype for Outdoor Unsupervised 3D Object Detection
+# Commonsense Prototype for Outdoor Unsupervised 3D Object Detection (CVPR 2024)
 
 This is the codebase of our CVPR 2024 paper. The codebase is still under updating. The paper is on the way.
 
