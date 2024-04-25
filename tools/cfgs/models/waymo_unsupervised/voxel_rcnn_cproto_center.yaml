@@ -3,7 +3,7 @@ CLASS_NAMES: ['Vehicle', 'Pedestrian', 'Cyclist']
 DATA_CONFIG:
     _BASE_CONFIG_: cfgs/dataset_configs/waymo_unsupervised/waymo_unsupervised_cproto.yaml
     NUM_FRAMES: 1
-    LABEL_OFFSET: 0.0
+    LABEL_OFFSET: 0.07
     POINT_FEATURE_ENCODING: {
         encoding_type: absolute_coordinates_encoding,
         used_feature_list: ['x', 'y', 'z', 'intensity', 'time'],

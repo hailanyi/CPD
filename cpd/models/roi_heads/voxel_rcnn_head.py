@@ -7,6 +7,11 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 import copy
 import numpy as np
+from ...utils import box_coder_utils, common_utils, loss_utils
+from ..model_utils.model_nms_utils import class_agnostic_nms
+from .target_assigner.proposal_target_layer import ProposalTargetLayer
+from ...utils.odiou_loss import odiou_3D
+from ...utils.bbloss import bb_loss
 
 class VoxelRCNNProtoHead(RoIHeadTemplate):
     def __init__(self, input_channels, model_cfg, point_cloud_range=None, voxel_size=None, num_frames=1, num_class=1,
@@ -417,7 +422,7 @@ class VoxelRCNNProtoHead(RoIHeadTemplate):
             b_loss1 = 0
         else:
             b_loss1 = bb_loss(batch_box_preds0[fg_mask], batch_box_preds1[fg_mask])
-            b_loss0 = b_loss0 * css_score_mask_new
+            b_loss1 = b_loss1 * css_score_mask_new
             b_loss1 = b_loss1.sum() / (fg_mask.sum() + 1)
 
 
@@ -449,6 +454,7 @@ class VoxelRCNNProtoHead(RoIHeadTemplate):
         b_loss1 = b_loss1*this_weight
 
         final = b_loss0+b_loss1+loss_sum
+
 
         return final
 
