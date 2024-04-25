@@ -126,7 +126,7 @@ The log infos are saved into log-test.txt You can run cat log-test.txt to view t
      	<tr>
     <tr>
     <tr>
-        <td><b>DBSCAN</td>
+        <td><b>DBSCAN-single-train</td>
         <td>2.65</td>
         <td>2.29</td>
         <td>0</td>
@@ -136,7 +136,7 @@ The log infos are saved into log-test.txt You can run cat log-test.txt to view t
         <td><b><a href="https://www.../">---</a></td>
      <tr>
        <tr>
-        <td><b>OYSTER</td>
+        <td><b>OYSTER-single-train</td>
         <td><b>7.91</td>
         <td><b>6.78</td>
         <td><b>0.03</td>
