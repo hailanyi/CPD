@@ -20,7 +20,6 @@ import multiprocessing
 from functools import partial
 from cpd.unsupervised_core.ob_op import box_cut,la_sampling
 import time
-from cpd.datasets.waymo_unsupervised.merge import DetectionsMerger
 
 
 class WaymoUnsupervisedDataset(DatasetTemplate):
@@ -820,14 +819,6 @@ def create_waymo_infos(dataset_cfg, class_names, data_path, save_path,
     if dataset.dataset_cfg.get('PPScoreConfig', None) is not None:
         print('---------------Start to generate ppscore---------------')
         dataset.create_ppscore(root_path=save_path / processed_data_tag)
-
-
-    if dataset.dataset_cfg.get('MERGE_CONFIG', None) is not None:
-        if os.path.exists(os.path.join(dataset.dataset_cfg.MERGE_CONFIG.DET_PATH, 'result_merged.pkl')):
-            print('detections are merged before !!!')
-        else:
-            merger = DetectionsMerger(dataset.dataset_cfg)
-            merger.merge()
 
     
     print('---------------Start to create outline box---------------')
