@@ -60,7 +60,7 @@ CPD
 
 Then, generate dataset information:
 ```
-python3 -m pcdet.datasets.waymo.waymo_tracking_dataset --cfg_file tools/cfgs/dataset_configs/waymo_unsupervised/waymo_unsupervised_cproto.yaml
+python3 -m pcdet.datasets.waymo_unsupervised.waymo_unsupervised_dataset --cfg_file tools/cfgs/dataset_configs/waymo_unsupervised/waymo_unsupervised_cproto.yaml
 ```
 
 #### KITTI Dataset
