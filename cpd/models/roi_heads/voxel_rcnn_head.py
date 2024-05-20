@@ -442,7 +442,7 @@ class VoxelRCNNProtoHead(RoIHeadTemplate):
         reg1_in = targets_dict1['shared_features']
         reg1 = reg1_in.clone().detach()
 
-        l = torch.cosine_similarity(reg0, reg1, dim=-1)
+        l = -torch.cosine_similarity(reg0, reg1, dim=-1)
 
         cls_valid_mask = (label >= 0).float()
 
