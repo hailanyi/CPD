@@ -80,9 +80,9 @@ CasA
 ├── tools
 ```
 
-Run following command to creat dataset infos:
+Run following command to create dataset infos:
 ```
-python3 -m pcdet.datasets.kitti.kitti2waymo_dataset create_kitti_infos tools/cfgs/dataset_configs/waymo_unsupervised/voxel_rcnn_cproto_center_kitti.yaml
+python3 -m pcdet.datasets.kitti.kitti2waymo_dataset create_kitti_infos tools/cfgs/dataset_configs/waymo_unsupervised/kitti2waymo_dataset.yaml
 ```
 
 ### Training
