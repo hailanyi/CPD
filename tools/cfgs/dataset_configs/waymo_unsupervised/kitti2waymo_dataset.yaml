@@ -1,7 +1,4 @@
-ROOT:
-    _BASE_CONFIG_: cfgs/dataset_configs/root_path.yaml
-
-DATA_PATH: '/home/asc01/data/kitti/detection'
+DATA_PATH: '../data/kitti/detection'
 
 DATASET: 'Kitti2WaymoDataset'
 
