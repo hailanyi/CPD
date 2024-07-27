@@ -52,7 +52,7 @@ if __name__ == '__main__':
         ext_modules=[
             make_cuda_ext(
                 name='iou3d_nms_cuda',
-                module='pcdet.ops.iou3d_nms',
+                module='cpd.ops.iou3d_nms',
                 sources=[
                     'src/iou3d_cpu.cpp',
                     'src/iou3d_nms_api.cpp',
@@ -62,7 +62,7 @@ if __name__ == '__main__':
             ),
             make_cuda_ext(
                 name='roiaware_pool3d_cuda',
-                module='pcdet.ops.roiaware_pool3d',
+                module='cpd.ops.roiaware_pool3d',
                 sources=[
                     'src/roiaware_pool3d.cpp',
                     'src/roiaware_pool3d_kernel.cu',
@@ -70,7 +70,7 @@ if __name__ == '__main__':
             ),
             make_cuda_ext(
                 name='roipoint_pool3d_cuda',
-                module='pcdet.ops.roipoint_pool3d',
+                module='cpd.ops.roipoint_pool3d',
                 sources=[
                     'src/roipoint_pool3d.cpp',
                     'src/roipoint_pool3d_kernel.cu',
@@ -78,7 +78,7 @@ if __name__ == '__main__':
             ),
             make_cuda_ext(
                 name='pointnet2_stack_cuda',
-                module='pcdet.ops.pointnet2.pointnet2_stack',
+                module='cpd.ops.pointnet2.pointnet2_stack',
                 sources=[
                     'src/pointnet2_api.cpp',
                     'src/ball_query.cpp',
@@ -99,7 +99,7 @@ if __name__ == '__main__':
             ),
             make_cuda_ext(
                 name='pointnet2_batch_cuda',
-                module='pcdet.ops.pointnet2.pointnet2_batch',
+                module='cpd.ops.pointnet2.pointnet2_batch',
                 sources=[
                     'src/pointnet2_api.cpp',
                     'src/ball_query.cpp',
