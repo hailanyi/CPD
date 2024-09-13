@@ -54,13 +54,13 @@ CPD
 │   │   │── waymo_infos_test.pkl
 │   │   │── waymo_infos_train.pkl
 │   │   │── waymo_infos_val.pkl
-├── pcdet
+├── cpd
 ├── tools
 ```
 
 Then, generate dataset information:
 ```
-python3 -m pcdet.datasets.waymo_unsupervised.waymo_unsupervised_dataset --cfg_file tools/cfgs/dataset_configs/waymo_unsupervised/waymo_unsupervised_cproto.yaml
+python3 -m cpd.datasets.waymo_unsupervised.waymo_unsupervised_dataset --cfg_file tools/cfgs/dataset_configs/waymo_unsupervised/waymo_unsupervised_cproto.yaml
 ```
 
 #### KITTI Dataset
@@ -76,13 +76,13 @@ CasA
 │   │   │   ├──calib & velodyne & label_2 & image_2 & (optional: planes)
 │   │   │── testing
 │   │   │   ├──calib & velodyne & image_2
-├── pcdet
+├── cpd
 ├── tools
 ```
 
 Run following command to create dataset infos:
 ```
-python3 -m pcdet.datasets.kitti.kitti2waymo_dataset create_kitti_infos tools/cfgs/dataset_configs/waymo_unsupervised/kitti2waymo_dataset.yaml
+python3 -m cpd.datasets.kitti.kitti2waymo_dataset create_kitti_infos tools/cfgs/dataset_configs/waymo_unsupervised/kitti2waymo_dataset.yaml
 ```
 
 ### Training
