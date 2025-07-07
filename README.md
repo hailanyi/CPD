@@ -91,7 +91,7 @@ Train using scripts
 cd tools
 sh dist_train.sh {cfg_file}
 ```
-The log infos are saved into log-test.txt You can run cat log.txt to view the test results.
+The log infos are saved into log.txt. You can run cat log.txt to view the test results.
 
 or run directly
 ```
